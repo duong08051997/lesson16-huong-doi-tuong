@@ -7,11 +7,44 @@
 <body>
 <canvas id="myCanvas" width="1639px" height="589px" style="border: 1px solid #d3d3d3;"></canvas>
 <script>
-    let c = document.getElementById("myCanvas");
-    let ctx = c.getContext("2d");
-    ctx.beginPath();
-    ctx.arc(95, 50, 40, 0, 2 * Math.PI);
-    ctx.stroke();
+    class Circles {
+        constructor(x, y, radius, color) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.color = color;
+        }
+    }
+    function getHex() {
+        return Math.floor(Math.random()*255);
+
+    }
+    function getColor() {
+        let red = getHex();
+        let blue = getHex()
+        let green = getHex();
+      //  console.log("rgb(" + red + "," + blue + "," + green +")")
+        return "rgb(" + red + "," + blue + "," + green +")";
+    }
+    function  creatCircles() {
+        let ctx = document.getElementById("myCanvas").getContext("2d");
+        let radius = Math.floor(Math.random()*80);
+        let color = getColor();
+        let x = Math.random()*window.innerWidth;
+        let y= Math.random()*window.innerHeight ;
+        let circle = new Circles(x,y,radius);
+        ctx.beginPath();
+        ctx.arc(circle.x,circle.y,circle.radius,0,2*Math.PI);
+        ctx.fillStyle = color;
+        ctx.fill();
+
+    }
+    function muTi() {
+        for (let i = 0; i <30 ; i++) {
+            creatCircles();
+        }
+
+    }muTi();
 
 
 </script>
