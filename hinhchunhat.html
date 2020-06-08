@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hinh chu nhat</title>
+</head>
+<body>
+<canvas id="hcn" width="600" height="500" style="border: 1px solid hotpink"></canvas><br>
+
+<!--Khai báo và khởi tạo một đối tượng kiểu Rectangle.-->
+
+<!--Hiển thị hình chữ nhật trên màn hình web-->
+
+<!--Thay đổi chiều dài và chiều rộng của hình chữ nhật.-->
+
+<!--In ra màn hình diện tích và chu vi của hình chữ nhật đó.-->
+<script>
+ function HCN(x,y,width,height) {
+     this.x = x;
+     this.y = y;
+     this.width = width;
+     this.height = height;
+ }
+ function veHCN() {
+     let hcn = document.getElementById("hcn").getContext("2d");
+     let width = Math.floor(Math.random()*150);
+     let height = Math.floor(Math.random()*200);
+     hcn.beginPath();
+     hcn.fillRect(100,100,width,height);
+     hcn.stroke();
+     hcn.closePath();
+     console.log(height,width)
+     dienTich = width * height;
+     chuVi = (width + height)*2;
+     document.write(`hinh chu nhat co dien tich la ${dienTich} <br>`);
+     document.write(`chu vi la ${chuVi} <br>`);
+
+ }veHCN();
+</script>
+</body>
+</html>
