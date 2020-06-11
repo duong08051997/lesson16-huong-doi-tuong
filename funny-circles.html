@@ -5,46 +5,82 @@
     <title>funny circles</title>
 </head>
 <body>
-<canvas id="myCanvas" width="1639px" height="589px" style="border: 1px solid #d3d3d3;"></canvas>
+<img id="img1" src="../../lesson17-lập trình hướng đối tượng 2/lesson-17-huong-doi-tuong-2/img/turn-on.png" height="100"
+     width="100"/>
+<canvas id="myCanvas" width="600px" height="400px" style="border: 1px solid #d3d3d3;"></canvas>
 <script>
     class Circles {
-        constructor(x, y, radius, color) {
+        constructor(x, y, radius, color, speed) {
             this.x = x;
             this.y = y;
             this.radius = radius;
             this.color = color;
+            this.speed = speed;
+        }
+
+
+        draw(canvas) {
+            let pen = canvas.getContext("2d");
+            pen.beginPath();
+            let img = document.getElementById("img1");
+            pen.drawImage(img, this.x, this.y, 100, 100);
+
+            pen.fillStyle = this.color;
+            pen.fill();
+        }
+
+        move() {
+            this.x += this.speed;
         }
     }
+
+
+    let  canvas = document.getElementById("myCanvas");
+    let pen = canvas.getContext("2d");
+
+    function createCircles() {
+        let radius = Math.floor(Math.random() * 80);
+        let speed = Math.floor(Math.random() * 5 + 5);
+        let color = getColor();
+        let x = 200;
+        let y = Math.random()*window.innerHeight;
+        let circle = new Circles(x, y, radius,color, speed);
+       circle.draw(canvas);
+       circles.push(circle);
+    }
     function getHex() {
-        return Math.floor(Math.random()*255);
+        return Math.floor(Math.random() * 255);
 
     }
+
     function getColor() {
         let red = getHex();
         let blue = getHex()
         let green = getHex();
-      //  console.log("rgb(" + red + "," + blue + "," + green +")")
-        return "rgb(" + red + "," + blue + "," + green +")";
-    }
-    function  creatCircles() {
-        let ctx = document.getElementById("myCanvas").getContext("2d");
-        let radius = Math.floor(Math.random()*80);
-        let color = getColor();
-        let x = Math.random()*window.innerWidth;
-        let y= Math.random()*window.innerHeight ;
-        let circle = new Circles(x,y,radius);
-        ctx.beginPath();
-        ctx.arc(circle.x,circle.y,circle.radius,0,2*Math.PI);
-        ctx.fillStyle = color;
-        ctx.fill();
-
+        return "rgb(" + red + "," + blue + "," + green + ")";
     }
     function muTi() {
-        for (let i = 0; i <30 ; i++) {
-            creatCircles();
+        for (let i = 0; i < 30; i++) {
+            createCircles();
         }
 
-    }muTi();
+    }
+
+    let circles = [];
+    muTi();
+    function main() {
+        pen.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].move();
+            if (circles[i].x >= canvas.width || circles[i].x <= 0) {
+                circles[i].speed = -1 * circles[i].speed;
+            }
+            circles[i].draw(canvas);
+        }
+        requestAnimationFrame(main);
+    }
+
+    main();
 
 
 </script>
